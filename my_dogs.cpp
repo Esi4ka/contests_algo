@@ -2,9 +2,9 @@
 using std::vector;
 
 class Dog{
+ public:
   Dog();
   ~Dog();
- public:
   int energy;
   int mood;
   int need_toilet;
