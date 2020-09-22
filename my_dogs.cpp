@@ -94,7 +94,7 @@ int main() {
   vector<Dog> v;
   for(int i = 0; i < N; i++) {
     for (int j = 0; j < n; j ++) {
-      Dog[i] = rand(Dog::playing(), Dog::eating(), Dog::walking(), Dog::scold(), Dog::castrate());
+      v[i] = rand(Dog::playing(), Dog::eating(), Dog::walking(), Dog::scold(), Dog::castrate());
     }
   }
   return 0;
