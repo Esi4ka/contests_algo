@@ -96,5 +96,6 @@ int main() {
       Dog[i] = rand(Dog::playing(), Dog::eating(), Dog::walking(), Dog::scold(), Dog::castrate());
     }
   }
+  delete[] pets;
   return 0;
 }
