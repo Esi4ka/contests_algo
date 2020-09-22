@@ -1,4 +1,5 @@
 #include <iostream>
+using std::vector;
 
 class Dog{
   Dog();
@@ -90,12 +91,11 @@ int main() {
   int N;    //количество экземпляров животного СОБАКА;
   std::cin >> n;
   std::cin >> N;
-  Dog* pets = new Dog[N];
-  for (int j = 0; j < n; j ++) {
-    for (int i = 0; i < N; i++) {
+  vector<Dog> v;
+  for(int i = 0; i < N; i++) {
+    for (int j = 0; j < n; j ++) {
       Dog[i] = rand(Dog::playing(), Dog::eating(), Dog::walking(), Dog::scold(), Dog::castrate());
     }
   }
-  delete[] pets;
   return 0;
 }
