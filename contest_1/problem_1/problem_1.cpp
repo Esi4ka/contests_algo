@@ -1,4 +1,3 @@
-//https://contest.yandex.ru/contest/19592/run-report/34076679/
 #include <iostream>
 
 int main() {
@@ -13,3 +12,8 @@ int main() {
   if (input != 1)
     std::cout << input;
 }
+
+//https://contest.yandex.ru/contest/19592/run-report/34076679/
+//старая посылка
+//https://contest.yandex.ru/contest/19592/run-report/35025952/  
+//новая протестированная посылка исправленного кода
