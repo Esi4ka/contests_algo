@@ -13,5 +13,5 @@ int main() {
   int k;
   std::cin >> n >> k;
   int t = win(n, k);
-  std::cout << (1 + t);
+  std::cout << 1 + t;
 }
