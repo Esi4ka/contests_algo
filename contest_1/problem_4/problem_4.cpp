@@ -1,6 +1,4 @@
-//https://contest.yandex.ru/contest/19592/run-report/34606074/
 #include <iostream>
-#define INITAL_CAPACITY 4
 
 class Stack {
  public:
@@ -8,23 +6,28 @@ class Stack {
   ~Stack();
   void Push(int x);
   int Pop();
-  bool IsEmpty();
+  bool IsEmpty()const;
  private:
   int *buffer;
+  static const int INITAL_CAPACITY = 4;
+  static const int GROW_SIZE = 2;
   int size;
   int capacity;
   void grow();
+  void shift();
 };
 
 Stack::Stack() : size(0), capacity(INITAL_CAPACITY) {
   buffer = new int[INITAL_CAPACITY];
 }
 
-bool Stack::IsEmpty() {
+bool Stack::IsEmpty() const {
   return size == 0;
 }
 
 int Stack::Pop() {
+  if(size < 1/3 * capacity)
+    shift();
   if (size > 0) {
     int value = buffer[size - 1];
     size--;
@@ -35,7 +38,7 @@ int Stack::Pop() {
 }
 
 void Stack::grow() {
-  capacity *= 2;
+  capacity *= GROW_SIZE;
   int *new_buffer = new int[capacity];
   for (int i = 0; i < size; ++i)
     new_buffer[i] = buffer[i];
@@ -43,7 +46,17 @@ void Stack::grow() {
   buffer = new_buffer;
 }
 
-void Stack::Push(int x) {
+void Stack::shift() {
+  capacity /= GROW_SIZE;
+  int *new_buffer = new int[capacity];
+  for (int i = 0; i < size; ++i)
+    new_buffer[i] = buffer[i];
+  delete[] buffer;
+  buffer = new_buffer;
+}
+
+
+void Stack::Push(const int x) {
   if (size == capacity)
     grow();
   buffer[size] = x;
@@ -60,9 +73,9 @@ Stack::~Stack() {
 class Queue {
  public:
   void push_back(int x);
-  void shift();
   int pop_front();
  private:
+  void shift();
   Stack out;
   Stack in;
 };
@@ -84,22 +97,20 @@ int Queue::pop_front() {
   return temp;
 }
 
-bool Solving(int n, int *input) {
-  bool is_true = 1;
-  int Temp1 = 0, Temp2 = 0;
+bool Solving(const int n, const int *input) {
+  bool is_good_input = true;
   Queue Solving;
-
   for (int i = 0; i < n; i++) {
     if (input[2 * i] == 2) {
       int a = Solving.pop_front();
       if (a != input[2 * i + 1]) {
-        is_true = 0;
+        is_good_input = false;
       }
     } else {
       Solving.push_back(input[2 * i + 1]);
     }
   }
-  return is_true;
+  return is_good_input;
 }
 
 int main() {
@@ -109,12 +120,14 @@ int main() {
   for (int i = 0; i < 2 * n; i++) {
     std::cin >> input[i];
   }
-  int is_right = 0;
-  is_right = Solving(n, input);
-  if (is_right == 0)
+  if (Solving(n, input) == 0)
     std::cout << "NO";
   else
     std::cout << "YES";
   delete[] input;
   return 0;
 }
+//https://contest.yandex.ru/contest/19592/run-report/34606074/
+//старая посылка
+//https://contest.yandex.ru/contest/19592/run-report/35026137/
+//новая посылка исправленного кода
