@@ -4,15 +4,12 @@
 int main() {
   int input;
   std::cin >> input;
-  int k = 0;
-  for (int i = 2; i <= input; i++) {
-    if (input % i == 0) {
-      while (input % i == 0) {
-        k++;
-        std::cout << i << " ";
-        input = input / i;
-      }
+  for (int i = 2; i * i <= input; ++i) {
+    while (input % i == 0) {
+      std::cout << i << " ";
+      input /= i;
     }
   }
+  if (input != 1)
+    std::cout << input;
 }
-
