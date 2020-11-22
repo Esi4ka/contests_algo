@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 
 class Stack {
  public:
@@ -40,8 +41,7 @@ int Stack::Pop() {
 void Stack::grow() {
   capacity *= GROW_SIZE;
   int *new_buffer = new int[capacity];
-  for (int i = 0; i < size; ++i)
-    new_buffer[i] = buffer[i];
+  memcpy (new_buffer, buffer, sizeof(buffer));
   delete[] buffer;
   buffer = new_buffer;
 }
@@ -49,8 +49,7 @@ void Stack::grow() {
 void Stack::shift() {
   capacity /= GROW_SIZE;
   int *new_buffer = new int[capacity];
-  for (int i = 0; i < size; ++i)
-    new_buffer[i] = buffer[i];
+  memcpy (new_buffer, buffer, sizeof(buffer));
   delete[] buffer;
   buffer = new_buffer;
 }
