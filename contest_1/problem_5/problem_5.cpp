@@ -1,9 +1,9 @@
 #include <iostream>
 
 
-struct Stack{
+class Stack{
  private:
-    int tail;
+    int size;
     int capacity;
     int* buffer;
  public:
@@ -13,11 +13,10 @@ struct Stack{
     void Push (int val);
     int Pop();
     int peek();
-
 };
 
 Stack::Stack(){
-    tail = 0;
+    size = 0;
     capacity = 8;
     buffer = new int[capacity];
 }
@@ -26,11 +25,11 @@ Stack::~Stack(){
 }
 
 bool Stack::isEmpty(){
-    return tail==0;
+    return !size;
 }
 
 void Stack::Push(int val){
-    if(tail == capacity - 1){
+    if(size + 1 == capacity){
         int* temp = new int[capacity * 2];
         for(int i = 0; i < capacity; ++i){
             temp[i] = buffer[i];
@@ -39,7 +38,7 @@ void Stack::Push(int val){
         buffer = temp;
         capacity *= 2;
     }
-    buffer[tail] = val;
+    buffer[size] = val;
     tail++;
 }
 
@@ -47,7 +46,7 @@ int Stack::Pop() {
     if(isEmpty()){
         return -1;
     }
-    int res = buffer[--tail];
+    int res = buffer[--size];
     return res;
 }
 
@@ -55,7 +54,7 @@ int Stack::peek() {
     if(isEmpty()){
         return -1;
     }
-    return buffer[tail - 1];
+    return buffer[size - 1];
 }
 
 
@@ -99,7 +98,6 @@ int postfixCount(int* postfix, int postfixCapacity){
             numbers->Push(current);
         }
         else{
-            
             int num1 = numbers->Pop();
             int num2 = numbers->Pop();
             int res = 0;
