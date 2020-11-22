@@ -39,7 +39,7 @@ void Stack::Push(int val){
         capacity *= 2;
     }
     buffer[size] = val;
-    tail++;
+    size++;
 }
 
 int Stack::Pop() {
