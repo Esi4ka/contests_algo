@@ -6,6 +6,7 @@ class Stack{
     int size;
     int capacity;
     int* buffer;
+    void grow();
  public:
     Stack();
     ~Stack();
@@ -28,15 +29,18 @@ bool Stack::isEmpty(){
     return !size;
 }
 
+void Stack::grow(){
+    int* temp = new int[capacity * 2];
+    for(int i = 0; i < capacity; ++i){
+        temp[i] = buffer[i];
+    }
+    delete[] buffer;
+    buffer = temp;
+    capacity *= 2;
+}
 void Stack::Push(int val){
     if(size + 1 == capacity){
-        int* temp = new int[capacity * 2];
-        for(int i = 0; i < capacity; ++i){
-            temp[i] = buffer[i];
-        }
-        delete[] buffer;
-        buffer = temp;
-        capacity *= 2;
+        grow();
     }
     buffer[size] = val;
     size++;
