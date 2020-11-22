@@ -7,26 +7,39 @@ void getarray(int* arr, int n) {
   }
 }
 
-int binsearch(int *arr, int n) {
+int binsearch(int* arr, int n) {
   int left = 0;
-  int right = n - 1;
-  while (right != left) {
-    int middle = (right + left) / 2;
-    int prev = middle - 1;
-    int next = middle + 1;
-    if (right - left == 1) {
-      if (arr[right] > arr[left])
-        return right;
-      else return left;
-    } else if (arr[prev] < arr[middle] && arr[middle] < arr[next]) {
-      left = middle;
-    } else if (arr[prev] > arr[middle] && arr[middle] > arr[next]) {
-      right = middle;
-    } else if (arr[prev] < arr[middle] && arr[middle] > arr[next]) {
-      return middle;
-    }
+  int right = n;
+  int m = 0;
+  
+  if(n == 2) {
+      if(arr[0] > arr[1]) {
+          std::cout << 0;
+      }
+      else {
+          std::cout << 1;
+      }
   }
-  return 0;
+  else if (arr[0] > arr[1]) {
+      std::cout << 0;
+  }
+  else if(arr[n-1] > arr[n-2]) {
+      std::cout << n-1;
+  }
+
+  else {
+    while(true) {
+      m = (left+right)/2;
+      if(arr[m] > arr[m-1] && arr[m] > arr[m+1])
+          break;
+      if(arr[m] > arr[m-1]) {
+          left = m;
+          continue;
+      }
+      right = m;
+    }
+    std::cout << m;
+  }
 }
 
 int main() {
@@ -34,9 +47,7 @@ int main() {
   std::cin >> n;
   int* arr = new int[n];
   getarray(arr, n);
-  
-  int pos = binsearch(arr, n);
-  std::cout << pos << std::endl;
+  std::cout << binsearch(arr, n) << std::endl;
   delete[] arr;
   return 0;
 }
