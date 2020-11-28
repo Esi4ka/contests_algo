@@ -1,59 +1,51 @@
 #include <iostream>
 
-int Find(const int *arr, int n) {
- int inc = 1;
- while (inc < n) {
-   if(arr[inc-1] < arr[inc]) {
-     inc *=2;
-   }
- }
- return inc;
+
+int binsearch(const int *array, int left, int right) {
+  while (true) {
+    int mid = left + (right - left) / 2;
+
+    if (array[mid] > array[mid + 1] && array[mid] > array[mid - 1])
+      return mid;
+
+    if (array[mid] > array[mid + 1])
+      right = mid;
+    else
+      left = mid + 1;
+  }
 }
 
-void getarray(int* arr, int n) {
- for (size_t i = 0; i < n; ++i) {
-   std::cin » arr[i];
- }
+
+int find(const int *arr, int left, int right) {
+  int tmp = 1;
+  int prev = 0;
+  while (tmp < right) {
+    if(arr[tmp-1] < arr[tmp]) {
+      prev = tmp;
+      tmp*=2;
+    }
+  }
+
+  if(tmp > right + 1) {
+    tmp = right;
+  }
+
+  return(binsearch(arr, prev, tmp));
 }
 
-int binsearch(int* arr, int n) {
- int left = 0;
- int right = n;
- int m = 0;
- 
 
- while(true) {
-   m = (left+right)/2;
-   if(arr[m] > arr[m-1] && arr[m] > arr[m+1])
-     break;
-   if(arr[m] > arr[m-1]) {
-     left = m;
-     continue;
-   }
-   right = m;
- }
 
- std::cout « m;
-}
+
 
 int main() {
- int n;
- std::cin » n;
- int* arr = new int[n];
- getarray(arr, n);
+  int n;
+  std::cin >> n;
+  int * arr = new int[n];
+  for (size_t i = 0; i < n; ++i)
+    std::cin >> arr[i];
 
- if(n == 2) {
-   if(arr[0] > arr[1]) {
-     std::cout « 0;
-     return 0;
-   }
- else {
-   std::cout « 1;
-   return 0;
-   }
- }
- int line = Find(arr, n);
- std::cout « binsearch(arr, line) « std::endl;
- delete[] arr;
- return 0;
+  std::cout << find(arr, 0, n - 1) << std::endl;
+
+  delete [] arr;
+  return 0;
 }
