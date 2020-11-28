@@ -4,13 +4,10 @@ int Find(const int *arr, int n) {
  int inc = 1;
  while (inc < n) {
    if(arr[inc-1] < arr[inc]) {
-     
      inc *=2;
-     //std::cout « inc « " ";
-     break;
    }
- return inc;
  }
+ return inc;
 }
 
 void getarray(int* arr, int n) {
