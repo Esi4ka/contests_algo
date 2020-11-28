@@ -4,9 +4,9 @@ int Find(const int *arr, int n) {
  int inc = 1;
  while (inc < n) {
    if(arr[inc-1] < arr[inc]) {
-     std::cout « inc « " ";
+     
      inc *=2;
-     std::cout « inc « " ";
+     //std::cout « inc « " ";
      break;
    }
  return inc;
